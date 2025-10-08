@@ -1,4 +1,4 @@
-package com.example.superheroes_android
+package com.example.freegames_android
 
 import org.junit.Test
 

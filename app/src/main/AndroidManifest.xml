@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SuperheroesAndroid">
+        android:theme="@style/Theme.FreeGamesAndroid">
         <activity
             android:name=".activities.DetailActivity"
             android:exported="false" />

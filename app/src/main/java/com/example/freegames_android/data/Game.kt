@@ -1,4 +1,4 @@
-package com.example.superheroes_android.data
+package com.example.freegames_android.data
 
 import com.google.gson.annotations.SerializedName
 

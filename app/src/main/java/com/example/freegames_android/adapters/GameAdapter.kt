@@ -1,13 +1,10 @@
-package com.example.superheroes_android.adapters
+package com.example.freegames_android.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.superheroes_android.R
-import com.example.superheroes_android.data.Game
-import com.example.superheroes_android.databinding.ItemGameBinding
+import com.example.freegames_android.data.Game
+import com.example.freegames_android.databinding.ItemGameBinding
 import com.squareup.picasso.Picasso
 
 class GameAdapter(

@@ -1,4 +1,4 @@
-package com.example.superheroes_android.data
+package com.example.freegames_android.data
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

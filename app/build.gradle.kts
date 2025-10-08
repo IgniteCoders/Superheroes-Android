@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.superheroes_android"
+    namespace = "com.example.freegames_android"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.superheroes_android"
+        applicationId = "com.example.freegames_android"
         minSdk = 28
         targetSdk = 36
         versionCode = 1
@@ -47,8 +47,6 @@ dependencies {
 
     // Picasso
     implementation("com.squareup.picasso:picasso:2.8")
-
-
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

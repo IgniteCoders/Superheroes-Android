@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Superheroes-Android</string>
-
+    <string name="app_name">FreeGames-Android</string>
 
     <string name="menu_search">Search</string>
 </resources>

@@ -1,16 +1,15 @@
-package com.example.superheroes_android.activities
+package com.example.freegames_android.activities
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.superheroes_android.R
-import com.example.superheroes_android.data.Game
-import com.example.superheroes_android.data.GameService
-import com.example.superheroes_android.databinding.ActivityDetailBinding
+import com.example.freegames_android.R
+import com.example.freegames_android.data.Game
+import com.example.freegames_android.data.GameService
+import com.example.freegames_android.databinding.ActivityDetailBinding
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
