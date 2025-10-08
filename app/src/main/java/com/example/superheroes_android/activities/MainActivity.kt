@@ -14,13 +14,14 @@ import com.example.superheroes_android.R
 import com.example.superheroes_android.adapters.GameAdapter
 import com.example.superheroes_android.data.Game
 import com.example.superheroes_android.data.GameService
+import com.example.superheroes_android.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var recyclerView: RecyclerView
+    lateinit var binding: ActivityMainBinding
 
     lateinit var adapter: GameAdapter
 
@@ -30,14 +31,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        recyclerView = findViewById(R.id.recyclerView)
 
         adapter = GameAdapter(filteredGameList) { position ->
             val superhero = filteredGameList[position]
@@ -46,8 +46,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = GridLayoutManager(this, 1)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = GridLayoutManager(this, 1)
 
         getGameList()
     }

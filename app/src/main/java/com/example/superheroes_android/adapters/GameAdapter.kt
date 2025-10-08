@@ -1,13 +1,13 @@
 package com.example.superheroes_android.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.superheroes_android.R
 import com.example.superheroes_android.data.Game
+import com.example.superheroes_android.databinding.ItemGameBinding
 import com.squareup.picasso.Picasso
 
 class GameAdapter(
@@ -17,8 +17,9 @@ class GameAdapter(
 
     // Cual es la vista para los elementos
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_superhero, parent, false)
-        return GameViewHolder(view)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ItemGameBinding.inflate(layoutInflater, parent, false)
+        return GameViewHolder(binding)
     }
 
     // Cuales son los datos para el elemento
@@ -41,13 +42,10 @@ class GameAdapter(
     }
 }
 
-class GameViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-    val nameTextView: TextView = view.findViewById(R.id.nameTextView)
-    val avatarImageView: ImageView = view.findViewById(R.id.avatarImageView)
+class GameViewHolder(val binding: ItemGameBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun render(game: Game) {
-        nameTextView.text = game.title
-        Picasso.get().load(game.thumbnail).into(avatarImageView)
+        binding.nameTextView.text = game.title
+        Picasso.get().load(game.thumbnail).into(binding.thumbnailImageView)
     }
 }
