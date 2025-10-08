@@ -1,6 +1,5 @@
 package com.example.superheroes_android.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,22 +7,22 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.superheroes_android.R
-import com.example.superheroes_android.data.Superhero
+import com.example.superheroes_android.data.Game
 import com.squareup.picasso.Picasso
 
-class SuperheroAdapter(
-    var items: List<Superhero>,
+class GameAdapter(
+    var items: List<Game>,
     val onClickListener: (Int) -> Unit
-) : RecyclerView.Adapter<SuperheroViewHolder>() {
+) : RecyclerView.Adapter<GameViewHolder>() {
 
     // Cual es la vista para los elementos
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuperheroViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_superhero, parent, false)
-        return SuperheroViewHolder(view)
+        return GameViewHolder(view)
     }
 
     // Cuales son los datos para el elemento
-    override fun onBindViewHolder(holder: SuperheroViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
         val item = items[position]
         holder.render(item)
         holder.itemView.setOnClickListener {
@@ -36,21 +35,19 @@ class SuperheroAdapter(
         return items.size
     }
 
-    fun updateItems(items: List<Superhero>) {
+    fun updateItems(items: List<Game>) {
         this.items = items
         notifyDataSetChanged()
     }
 }
 
-class SuperheroViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class GameViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     val nameTextView: TextView = view.findViewById(R.id.nameTextView)
     val avatarImageView: ImageView = view.findViewById(R.id.avatarImageView)
 
-    fun render(superhero: Superhero) {
-        nameTextView.text = superhero.name
-        //Log.d("API", superhero.image.url)
-        //Log.d("API", superhero.id)
-        Picasso.get().load("https://i.imgur.com/hPsu2lH.png").into(avatarImageView)
+    fun render(game: Game) {
+        nameTextView.text = game.title
+        Picasso.get().load(game.thumbnail).into(avatarImageView)
     }
 }

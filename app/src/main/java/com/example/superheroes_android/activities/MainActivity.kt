@@ -2,9 +2,7 @@ package com.example.superheroes_android.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
-import android.webkit.WebView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -13,9 +11,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.superheroes_android.R
-import com.example.superheroes_android.adapters.SuperheroAdapter
-import com.example.superheroes_android.data.Superhero
-import com.example.superheroes_android.data.SuperheroService
+import com.example.superheroes_android.adapters.GameAdapter
+import com.example.superheroes_android.data.Game
+import com.example.superheroes_android.data.GameService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,9 +22,10 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var recyclerView: RecyclerView
 
-    lateinit var adapter: SuperheroAdapter
+    lateinit var adapter: GameAdapter
 
-    var superheroList: List<Superhero> = emptyList()
+    var filteredGameList: List<Game> = emptyList()
+    var originalGameList: List<Game> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,17 +39,17 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
 
-        adapter = SuperheroAdapter(superheroList) { position ->
-            val superhero = superheroList[position]
+        adapter = GameAdapter(filteredGameList) { position ->
+            val superhero = filteredGameList[position]
             val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra("SUPERHERO_ID", superhero.id)
             startActivity(intent)
         }
 
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = GridLayoutManager(this, 1)
 
-        searchSuperheroes("a")
+        getGameList()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -60,26 +59,27 @@ class MainActivity : AppCompatActivity() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                searchSuperheroes(query)
-                return true
+                return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                return false
+                filteredGameList = originalGameList.filter { it.title.contains(newText, true) }
+                adapter.updateItems(filteredGameList)
+                return true
             }
         })
 
         return true
     }
 
-    fun searchSuperheroes(query: String) {
+    fun getGameList() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val service = SuperheroService.getInstance()
-                val result = service.findSuperheroesByName(query)
-                superheroList = result.results
+                val service = GameService.getInstance()
+                originalGameList = service.getAllGames()
+                filteredGameList = originalGameList
                 CoroutineScope(Dispatchers.Main).launch {
-                    adapter.updateItems(superheroList)
+                    adapter.updateItems(filteredGameList)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
