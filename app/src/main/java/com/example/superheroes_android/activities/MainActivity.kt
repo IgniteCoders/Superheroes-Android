@@ -1,5 +1,6 @@
 package com.example.superheroes_android.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -39,9 +40,11 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
 
-        adapter = SuperheroAdapter(superheroList) {
-            // He hecho click en superheroe
-            superheroList[it]
+        adapter = SuperheroAdapter(superheroList) { position ->
+            val superhero = superheroList[position]
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("SUPERHERO_ID", superhero.id)
+            startActivity(intent)
         }
 
         recyclerView.adapter = adapter
@@ -71,11 +74,15 @@ class MainActivity : AppCompatActivity() {
 
     fun searchSuperheroes(query: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val service = SuperheroService.getInstance()
-            val result = service.findSuperheroesByName(query)
-            superheroList = result.results
-            CoroutineScope(Dispatchers.Main).launch {
-                adapter.updateItems(superheroList)
+            try {
+                val service = SuperheroService.getInstance()
+                val result = service.findSuperheroesByName(query)
+                superheroList = result.results
+                CoroutineScope(Dispatchers.Main).launch {
+                    adapter.updateItems(superheroList)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

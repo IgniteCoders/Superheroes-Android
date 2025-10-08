@@ -51,6 +51,6 @@ class SuperheroViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         nameTextView.text = superhero.name
         //Log.d("API", superhero.image.url)
         //Log.d("API", superhero.id)
-        Picasso.get().load("https://media.istockphoto.com/id/500593190/es/foto/composición-dedo-frame-mans-hands-disfrute-de-la-puesta-de-sol.jpg?s=612x612&w=0&k=20&c=OmCwt3rpvw9iLDVRVAle4RZNBY7v83il9o-UUBbgwRs=").into(avatarImageView)
+        Picasso.get().load("https://i.imgur.com/hPsu2lH.png").into(avatarImageView)
     }
 }
