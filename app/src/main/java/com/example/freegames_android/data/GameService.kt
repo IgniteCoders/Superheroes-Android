@@ -12,7 +12,7 @@ interface GameService {
     suspend fun getAllGames(): List<Game>
 
     @GET("game")
-    suspend fun getGameById(@Query("id") id: String): Game
+    suspend fun getGameById(@Query("id") id: Int): Game
 
     companion object {
         fun getInstance(): GameService {

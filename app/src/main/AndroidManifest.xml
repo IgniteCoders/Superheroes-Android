@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FreeGamesAndroid">
         <activity
+            android:name=".activities.GalleryActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.DetailActivity"
             android:exported="false" />
         <activity

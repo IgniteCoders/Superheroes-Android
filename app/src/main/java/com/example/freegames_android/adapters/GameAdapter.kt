@@ -44,7 +44,7 @@ class GameAdapter(
 class GameViewHolder(val binding: ItemGameBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun render(game: Game) {
-        binding.nameTextView.text = game.title
+        binding.titleTextView.text = game.title
         binding.descriptionTextView.text = game.descriptionShort
         binding.genreChip.text = game.genre
         when (game.platform) {

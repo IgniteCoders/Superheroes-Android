@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         adapter = GameAdapter(filteredGameList) { position ->
             val superhero = filteredGameList[position]
             val intent = Intent(this, DetailActivity::class.java)
-            intent.putExtra("SUPERHERO_ID", superhero.id)
+            intent.putExtra(DetailActivity.EXTRA_GAME_ID, superhero.id)
             startActivity(intent)
         }
 

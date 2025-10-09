@@ -36,7 +36,7 @@
                 android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/nameTextView"
+                    android:id="@+id/titleTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Game title"

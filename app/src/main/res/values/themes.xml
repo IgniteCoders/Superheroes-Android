@@ -47,4 +47,22 @@
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
     </style>
+
+    <style name="SectionTitle">
+        <item name="android:textColor">@color/md_theme_primary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MinSystemRequirements">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="MinSystemRequirements.Label" parent="MinSystemRequirements">
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="MinSystemRequirements.Value" parent="MinSystemRequirements">
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
