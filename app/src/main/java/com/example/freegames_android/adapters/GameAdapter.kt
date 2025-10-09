@@ -1,8 +1,10 @@
 package com.example.freegames_android.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.freegames_android.R
 import com.example.freegames_android.data.Game
 import com.example.freegames_android.databinding.ItemGameBinding
 import com.squareup.picasso.Picasso
@@ -43,6 +45,12 @@ class GameViewHolder(val binding: ItemGameBinding) : RecyclerView.ViewHolder(bin
 
     fun render(game: Game) {
         binding.nameTextView.text = game.title
-        Picasso.get().load(game.thumbnail).into(binding.thumbnailImageView)
+        binding.descriptionTextView.text = game.descriptionShort
+        binding.genreChip.text = game.genre
+        when (game.platform) {
+            "PC (Windows)" -> binding.platformButton.setIconResource(R.drawable.ic_desktop_windows)
+            "Web Browser" -> binding.platformButton.setIconResource(R.drawable.ic_web)
+        }
+        Picasso.get().load(game.thumbnail).placeholder(R.drawable.bg_image_placeholder).into(binding.thumbnailImageView)
     }
 }
