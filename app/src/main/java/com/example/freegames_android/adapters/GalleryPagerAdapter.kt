@@ -1,37 +1,32 @@
 package com.example.freegames_android.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
-import androidx.viewpager.widget.PagerAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.example.freegames_android.data.Screenshot
 import com.example.freegames_android.databinding.ItemGalleryPagerBinding
-import com.example.freegames_android.databinding.ItemScreenshotBinding
 import com.squareup.picasso.Picasso
 
-class GalleryPagerAdapter(
-    var items: List<Screenshot>,
-    var selectedPosition: Int
-) : PagerAdapter() {
+class GalleryPagerAdapter(var items: List<Screenshot>) : RecyclerView.Adapter<GalleryPagerViewHolder>() {
 
-    override fun getCount(): Int {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryPagerViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ItemGalleryPagerBinding.inflate(layoutInflater, parent, false)
+        return GalleryPagerViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: GalleryPagerViewHolder, position: Int) {
+        val item = items[position]
+        holder.render(item.image)
+    }
+
+    override fun getItemCount(): Int {
         return items.size
     }
+}
 
-    override fun isViewFromObject(view: View, obj: Any): Boolean {
-        return view == obj
-    }
-
-    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val layoutInflater = LayoutInflater.from(container.context)
-        val binding = ItemGalleryPagerBinding.inflate(layoutInflater, container, false)
-        Picasso.get().load(items[position].image).into(binding.galleryImageView)
-        container.addView(binding.root, position)
-        return binding.root
-    }
-
-    override fun destroyItem(container: ViewGroup, position: Int, obj: Any) {
-        container.removeViewAt(position)
+class GalleryPagerViewHolder(val binding: ItemGalleryPagerBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun render(image: String) {
+        Picasso.get().load(image).into(binding.galleryImageView)
     }
 }

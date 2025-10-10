@@ -7,12 +7,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.freegames_android.R
 import com.example.freegames_android.adapters.GalleryPagerAdapter
-import com.example.freegames_android.adapters.ScreenshotAdapter
+import com.example.freegames_android.adapters.GalleryAdapter
 import com.example.freegames_android.data.Screenshot
 import com.example.freegames_android.databinding.ActivityGalleryBinding
-import com.squareup.picasso.Picasso
 
 class GalleryActivity : AppCompatActivity() {
 
@@ -23,7 +23,7 @@ class GalleryActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityGalleryBinding
 
-    lateinit var adapter: ScreenshotAdapter
+    lateinit var adapter: GalleryAdapter
     lateinit var pagerAdapter: GalleryPagerAdapter
     lateinit var screenshots: List<Screenshot>
     var selectedPosition = 0
@@ -46,39 +46,29 @@ class GalleryActivity : AppCompatActivity() {
         screenshots = intent.getStringArrayExtra(EXTRA_SCREENSHOTS_ARRAY)!!.map { Screenshot(it) }
 
         // ViewPager
-        pagerAdapter = GalleryPagerAdapter(screenshots, selectedPosition)
+        pagerAdapter = GalleryPagerAdapter(screenshots)
         binding.galleryViewPager.adapter = pagerAdapter
 
-        //binding.galleryViewPager.setCurrentItem(selectedPosition)
+        binding.galleryViewPager.currentItem = selectedPosition
 
-        binding.galleryViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-
+        binding.galleryViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
                 selectedPosition = position
                 adapter.changeSelectedPosition(selectedPosition)
             }
-
-            override fun onPageScrollStateChanged(state: Int) {}
         })
 
-        //binding.galleryViewPager.setCurrentItem(selectedPosition)
-
         // RecyclerView
-        adapter = ScreenshotAdapter(screenshots, selectedPosition) { position ->
+        adapter = GalleryAdapter(screenshots, selectedPosition) { position ->
             selectedPosition = position
-            binding.galleryViewPager.setCurrentItem(selectedPosition)
-            //adapter.changeSelectedPosition(selectedPosition)
+            binding.galleryViewPager.currentItem = selectedPosition
+            // adapter.changeSelectedPosition(selectedPosition) // No es necesario
         }
 
         binding.galleryRecyclerView.adapter = adapter
         binding.galleryRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         binding.galleryRecyclerView.scrollToPosition(selectedPosition)
-    }
-
-    fun loadImage() {
-        binding.galleryViewPager.setCurrentItem(selectedPosition)
-        //Picasso.get().load(screenshots[selectedPosition].image).into(binding.galleryImageView)
     }
 }

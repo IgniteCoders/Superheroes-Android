@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.freegames_android.R
-import com.example.freegames_android.adapters.ScreenshotAdapter
+import com.example.freegames_android.adapters.GalleryAdapter
 import com.example.freegames_android.data.Game
 import com.example.freegames_android.data.GameService
 import com.example.freegames_android.databinding.ActivityDetailBinding
@@ -90,7 +90,7 @@ class DetailActivity : AppCompatActivity() {
 
         // Images
         Picasso.get().load(game.thumbnail).into(binding.thumbnailImageView)
-        val adapter = ScreenshotAdapter(game.screenshots, -1) { position ->
+        val adapter = GalleryAdapter(game.screenshots, -1) { position ->
             val intent = Intent(this, GalleryActivity::class.java)
             intent.putExtra(GalleryActivity.EXTRA_SCREENSHOT_INDEX, position)
             intent.putExtra(GalleryActivity.EXTRA_SCREENSHOTS_ARRAY, game.screenshots.map { it.image }.toTypedArray())

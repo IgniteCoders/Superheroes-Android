@@ -155,7 +155,7 @@
                     android:id="@+id/screenshotsRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
-                    tools:listitem="@layout/item_screenshot"
+                    tools:listitem="@layout/item_gallery"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal"/>
 
