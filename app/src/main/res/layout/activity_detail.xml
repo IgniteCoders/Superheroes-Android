@@ -154,7 +154,10 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/screenshotsRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="160dp"
+                    tools:listitem="@layout/item_screenshot"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal"/>
 
             </LinearLayout>
 

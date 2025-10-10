@@ -90,7 +90,7 @@ class DetailActivity : AppCompatActivity() {
 
         // Images
         Picasso.get().load(game.thumbnail).into(binding.thumbnailImageView)
-        val adapter = ScreenshotAdapter(game.screenshots) { position ->
+        val adapter = ScreenshotAdapter(game.screenshots, -1) { position ->
             val intent = Intent(this, GalleryActivity::class.java)
             intent.putExtra(GalleryActivity.EXTRA_SCREENSHOT_INDEX, position)
             intent.putExtra(GalleryActivity.EXTRA_SCREENSHOTS_ARRAY, game.screenshots.map { it.image }.toTypedArray())

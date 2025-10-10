@@ -10,6 +10,7 @@ import com.squareup.picasso.Picasso
 
 class ScreenshotAdapter(
     var items: List<Screenshot>,
+    var selectedPosition: Int,
     val onClickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<ScreenshotViewHolder>() {
 
@@ -24,6 +25,7 @@ class ScreenshotAdapter(
     override fun onBindViewHolder(holder: ScreenshotViewHolder, position: Int) {
         val item = items[position]
         holder.render(item)
+        holder.setSelected(position == selectedPosition)
         holder.itemView.setOnClickListener {
             onClickListener(position)
         }
@@ -34,9 +36,11 @@ class ScreenshotAdapter(
         return items.size
     }
 
-    fun updateItems(items: List<Screenshot>) {
-        this.items = items
-        notifyDataSetChanged()
+    fun changeSelectedPosition(position: Int) {
+        val oldSelected = selectedPosition
+        selectedPosition = position
+        notifyItemChanged(oldSelected)
+        notifyItemChanged(selectedPosition)
     }
 }
 
@@ -44,5 +48,13 @@ class ScreenshotViewHolder(val binding: ItemScreenshotBinding) : RecyclerView.Vi
 
     fun render(screenshot: Screenshot) {
         Picasso.get().load(screenshot.image).placeholder(R.drawable.bg_image_placeholder).into(binding.screenshotImageView)
+    }
+
+    fun setSelected(selected: Boolean) {
+        if (selected) {
+            itemView.setBackgroundResource(R.color.md_theme_primary)
+        } else {
+            itemView.setBackgroundResource(0)
+        }
     }
 }
