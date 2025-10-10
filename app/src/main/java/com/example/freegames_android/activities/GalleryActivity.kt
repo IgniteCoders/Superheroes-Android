@@ -1,6 +1,7 @@
 package com.example.freegames_android.activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -28,6 +29,8 @@ class GalleryActivity : AppCompatActivity() {
     lateinit var screenshots: List<Screenshot>
     var selectedPosition = 0
 
+    var showingRecyclerView = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -40,6 +43,8 @@ class GalleryActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        supportActionBar?.hide()
 
         // Get extras
         selectedPosition = intent.getIntExtra(EXTRA_SCREENSHOT_INDEX, 0)
@@ -70,5 +75,14 @@ class GalleryActivity : AppCompatActivity() {
         binding.galleryRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         binding.galleryRecyclerView.scrollToPosition(selectedPosition)
+
+        /*binding.galleryViewPager.setOnClickListener {
+            binding.galleryRecyclerView.visibility = if (showingRecyclerView) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
+            showingRecyclerView = !showingRecyclerView
+        }*/
     }
 }
