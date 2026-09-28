@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Superheroes</string>
+
+    <string name="menu_search">Search</string>
+</resources>
